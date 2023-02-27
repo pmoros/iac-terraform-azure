@@ -32,6 +32,7 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = module.resource_group.resource_group_name
   virtual_network_name = module.vpc.vnet_name
   address_prefixes     = ["172.16.1.0/25"]
+  service_endpoints = ["Microsoft.KeyVault"]
 }
 
 module "web_app" {
@@ -54,13 +55,16 @@ module "servicebus" {
 
 }
 
+
 module "key_vault" {
   source              = "../modules/data-stores/key-vault"
   resource_group_name = module.resource_group.resource_group_name
   location            = "eastus"
   key_vault_sku            = "standard"
+  key_vault_name      = "pmoros-kv-act2-eastus"
   subnet_id           = azurerm_subnet.subnet.id
 }
+
 
 resource "azurerm_key_vault_access_policy" "kvap_org" {
   key_vault_id = module.key_vault.key_vault_id
