@@ -1,18 +1,18 @@
 terraform {
   required_version = "=1.3.9"
   backend "azurerm" {
-    storage_account_name = "stpaulmorosdefault001"
-    container_name       = "crterraformstate001"
-    key                  = "global/resource-group"
-    access_key           = "cri8Kac61+2I5usyQj2rOtf/baLjGLHtPXFxq9FOZc7DleKtcspPnJ74yl5UxiZI+7552kExcoT6+AStXYecSA=="
+    storage_account_name = "stpaulmorostfstate001"
+    container_name       = "crtfstate001"
+    key                  = "global/storage-account"
+    access_key           = "0k2Dwr6pGvn81jehB77D5bQa47KjFBhqQsQqIVZeujXu6OLu40nsU6NgigDbcx+Cc10adTkHoHaD+ASteofe2Q=="
   }
 }
 
-provider "azurerm" {    
-    features {}
+provider "azurerm" {
+  features {}
 }
 
-resource "azurerm_resource_group" "rg-activity2-eastus" {
-  name     = "rg-activity2-${var.location}"
+resource "azurerm_resource_group" "rg-terraform-eastus" {
+  name     = "rg-terraform-${var.location}"
   location = var.location
 }
