@@ -14,6 +14,22 @@ provider "azurerm" {
 
 module "resource_group" {
   source              = "../modules/resource-group"
-  resource_group_name = "rg-activity-eastus"
+  resource_group_name = "rg-activity2-eastus"
   location            = "eastus"
+}
+
+module "vpc" {
+  source              = "../modules/vpc"
+  resource_group_name = module.resource_group.resource_group_name
+  asg_name            = "asg-activity2-eastus"
+  location            = "eastus"
+  vnet_name           = "vnet-activity2-eastus"
+  address_space       = ["172.16.1.0/24"]
+}
+
+resource "azurerm_subnet" "subnet" {
+  name                 = "web-app-activity2-eastus"
+  resource_group_name  = module.resource_group.resource_group_name
+  virtual_network_name = module.vpc.vnet_name
+  address_prefixes     = ["172.16.1.0/25"]
 }
