@@ -17,3 +17,13 @@ module "resource_group" {
   resource_group_name = "rg-activity-eastus"
   location            = "eastus"
 }
+
+module "vpc" {
+  source              = "../modules/vpc"
+  resource_group_name = module.resource_group.resource_group_name
+  asg_name            = "asg-activity2-eastus"
+  location            = "eastus"
+  vnet_name           = "vnet-activity2-eastus"
+  address_space       = ["172.16.1.0/24"]
+}
+
