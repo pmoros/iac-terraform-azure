@@ -12,5 +12,12 @@ resource "azurerm_storage_account" "stpaulmorosact002" {
   tags = {
     lob = "learning"
     workload = "activity2"
+  }
+
+  network_rules {
+    default_action             = "Allow"
+    ip_rules                   = []
+    virtual_network_subnet_ids = [var.subnet_id]
   }  
+  
 }

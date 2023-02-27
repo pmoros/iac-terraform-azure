@@ -32,7 +32,7 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = module.resource_group.resource_group_name
   virtual_network_name = module.vpc.vnet_name
   address_prefixes     = ["172.16.1.0/25"]
-  service_endpoints = ["Microsoft.KeyVault"]
+  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage", "Microsoft.ServiceBus"]
 }
 
 module "web_app" {
@@ -118,4 +118,10 @@ resource "azurerm_key_vault_access_policy" "kvap_walter" {
 storage_permissions = [
     "Get",
 ]  
+}
+
+module "storage_account" {
+  source             = "../modules/data-stores/storage-account"  
+  location          = "eastus"
+  subnet_id          = azurerm_subnet.subnet.id
 }
