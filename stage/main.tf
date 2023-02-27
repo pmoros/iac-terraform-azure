@@ -138,19 +138,19 @@ module "storage_account" {
   subnet_id          = azurerm_subnet.subnet.id
 }
 
+# !: Secrets issue with user c160a942-c869-429f-8a96-f8c8296d57db
+# resource "azurerm_key_vault_secret" "username" {
+#   name         = "db-username"
+#   value        = "yourusername"
+#   key_vault_id = module.key_vault.key_vault_id
+# }
 
-resource "azurerm_key_vault_secret" "username" {
-  name         = "db-username"
-  value        = "yourusername"
-  key_vault_id = module.key_vault.key_vault_id
-}
 
-
-resource "azurerm_key_vault_secret" "password" {
-  name         = "db-password"
-  value        = "4-V3ry-53cr37-P455w0rd?"
-  key_vault_id = module.key_vault.key_vault_id
-}
+# resource "azurerm_key_vault_secret" "password" {
+#   name         = "db-password"
+#   value        = "4-V3ry-53cr37-P455w0rd?"
+#   key_vault_id = module.key_vault.key_vault_id
+# }
 
 module "sql_server" {
   source              = "../modules/data-stores/sql-server"
