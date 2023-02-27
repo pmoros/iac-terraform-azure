@@ -33,3 +33,14 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = module.vpc.vnet_name
   address_prefixes     = ["172.16.1.0/25"]
 }
+
+module "web_app" {
+  source              = "../modules/services/app-service"
+  resource_group_name = module.resource_group.resource_group_name
+  location            = "eastus"
+  appserviceplan_name = "asp-activity2-eastus"
+  appservice_name     = "app-activity2-eastus"
+  subnet_id           = azurerm_subnet.subnet.id
+  sku_name            = "B1"
+}
+
