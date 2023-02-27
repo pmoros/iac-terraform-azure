@@ -11,12 +11,11 @@ The branching strategy used in this repository is based on the [Github Flow](htt
 
 # Getting Started
 
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+This project divides the infrastructure into global resources (used by all environments) like resource groups or storage accounts. There are also modules and an staging environment.
 
-1. Installation process
-2. Software dependencies
-3. Latest releases
-4. API references
+1. Create the global resources using the terraform `terraform apply` command.
+   1. Create the resource group for the global resources using the terraform `terraform apply` command in the `global/resource-group` folder.
+   2. Create the storage account for the global resources (terraform state will be store here) using the terraform `terraform apply` command in the `global/storage-account` folder.
 
 # Build and Test
 
