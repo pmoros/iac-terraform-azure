@@ -44,3 +44,12 @@ module "web_app" {
   sku_name            = "B1"
 }
 
+module "servicebus" {
+  source              = "../modules/services/servicebus"
+  resource_group_name = module.resource_group.resource_group_name
+  location            = "eastus"
+  servicebus_namespace_name      = "ns-activity2-eastus"
+  servicebus_queue_name          = "queue-activity2-eastus"
+  sku = "Standard"
+
+}
