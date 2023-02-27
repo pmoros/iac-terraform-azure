@@ -53,3 +53,65 @@ module "servicebus" {
   sku = "Standard"
 
 }
+
+module "key_vault" {
+  source              = "../modules/data-stores/key-vault"
+  resource_group_name = module.resource_group.resource_group_name
+  location            = "eastus"
+  key_vault_sku            = "standard"
+  subnet_id           = azurerm_subnet.subnet.id
+}
+
+resource "azurerm_key_vault_access_policy" "kvap_org" {
+  key_vault_id = module.key_vault.key_vault_id
+  tenant_id    = module.key_vault.tenant_id
+  object_id    = module.key_vault.object_id
+
+  key_permissions = [
+    "Get",
+  ]
+
+  secret_permissions = [
+    "Get",
+  ]
+
+storage_permissions = [
+    "Get",
+]  
+}
+
+resource "azurerm_key_vault_access_policy" "kvap_alejandro" {
+  key_vault_id = module.key_vault.key_vault_id
+  tenant_id    = module.key_vault.tenant_id
+  object_id    = "34dec84a-67fb-42b8-b7cf-64998f2ed072"
+
+  key_permissions = [
+    "Get",
+  ]
+
+  secret_permissions = [
+    "Get",
+  ]
+
+storage_permissions = [
+    "Get",
+]  
+}
+
+resource "azurerm_key_vault_access_policy" "kvap_walter" {
+  key_vault_id = module.key_vault.key_vault_id
+  tenant_id    = module.key_vault.tenant_id
+  object_id    = "95c7d29c-45e7-4171-8356-525ac9c3e85a"
+
+  key_permissions = [
+    "Get",
+  ]
+
+  secret_permissions = [
+    "Get",
+  ]
+
+storage_permissions = [
+    "Get",
+]  
+}
