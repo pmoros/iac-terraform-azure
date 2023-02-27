@@ -32,7 +32,7 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = module.resource_group.resource_group_name
   virtual_network_name = module.vpc.vnet_name
   address_prefixes     = ["172.16.1.0/25"]
-  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage", "Microsoft.ServiceBus"]
+  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage", "Microsoft.ServiceBus", "Microsoft.Sql"]
 }
 
 module "web_app" {
@@ -65,63 +65,21 @@ module "key_vault" {
   subnet_id           = azurerm_subnet.subnet.id
 }
 
-
-resource "azurerm_key_vault_access_policy" "kvap_org" {
-  key_vault_id = module.key_vault.key_vault_id
-  tenant_id    = module.key_vault.tenant_id
-  object_id    = module.key_vault.object_id
-
-  key_permissions = [
-    "Get",
-  ]
-
-  secret_permissions = [
-    "Get",
-  ]
-
-storage_permissions = [
-    "Get",
-]  
-}
-
-resource "azurerm_key_vault_access_policy" "kvap_alejandro" {
-  key_vault_id = module.key_vault.key_vault_id
-  tenant_id    = module.key_vault.tenant_id
-  object_id    = "34dec84a-67fb-42b8-b7cf-64998f2ed072"
-
-  key_permissions = [
-    "Get",
-  ]
-
-  secret_permissions = [
-    "Get",
-  ]
-
-storage_permissions = [
-    "Get",
-]  
-}
-
-resource "azurerm_key_vault_access_policy" "kvap_walter" {
-  key_vault_id = module.key_vault.key_vault_id
-  tenant_id    = module.key_vault.tenant_id
-  object_id    = "95c7d29c-45e7-4171-8356-525ac9c3e85a"
-
-  key_permissions = [
-    "Get",
-  ]
-
-  secret_permissions = [
-    "Get",
-  ]
-
-storage_permissions = [
-    "Get",
-]  
-}
-
 module "storage_account" {
   source             = "../modules/data-stores/storage-account"  
   location          = "eastus"
   subnet_id          = azurerm_subnet.subnet.id
+}
+
+resource "azurerm_key_vault_secret" "username" {
+  name         = "db-username"
+  value        = "yourusername"
+  key_vault_id = module.key_vault.key_vault_id
+}
+
+
+resource "azurerm_key_vault_secret" "password" {
+  name         = "db-password"
+  value        = "yourpassword"
+  key_vault_id = module.key_vault.key_vault_id
 }
