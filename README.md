@@ -19,4 +19,4 @@ This project divides the infrastructure into global resources (used by all envir
 
 # Build and Test
 
-TODO: Describe and show how to build your code and run the tests.
+There is a stage environment configured to apply the described infrastructure. To create this environment execute `cd stage` and then `terraform apply` in order to execute the script.
