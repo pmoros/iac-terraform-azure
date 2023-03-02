@@ -1,5 +1,5 @@
 terraform {
-  required_version = "=1.3.9"
+  required_version = ">=1.3.9"
 }
 
 resource "azurerm_service_plan" "appserviceplan" {
