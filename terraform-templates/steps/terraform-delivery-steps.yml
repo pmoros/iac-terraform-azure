@@ -51,7 +51,7 @@ steps:
     displayName: "Publish Terraform Plan"
     condition: and(succeeded(), eq(${{ parameters.terraformPlan }}, true))
     inputs:
-      targetPath: $(System.DefaultWorkingDirectory)/tfplan
+      targetPath: "$(System.DefaultWorkingDirectory)/$(environment)/tfplan"
       artifactName: tfplan
 
   - task: TerraformTaskV4@4
