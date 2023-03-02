@@ -7,7 +7,7 @@ parameters:
   terraformApply: false
 
 steps:
-  - task: TerraformInstaller@0
+  - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
     displayName: "Install Terraform"
     inputs:
       terraformVersion: "0.12.24"
