@@ -21,7 +21,7 @@ steps:
       command: init
       workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
       backendType: "azurerm"
-      backendServiceArm: ${{ parameters.azureServiceConnection }}}
+      backendServiceArm: ${{ parameters.azureServiceConnection }}
       ensureBackend: true
       backendAzureRmResourceGroupName: $(terraformBackendResourceGroupName)
       backendAzureRmStorageAccountName: $(terraformBackendStorageAccountName)
