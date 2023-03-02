@@ -44,8 +44,15 @@ steps:
       provider: "azurerm"
       command: plan
       workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
-      commandOptions: "-input=false -out=tfplan"
+      commandOptions: "-no-color -input=false -out=tfplan"
       environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
+
+  - task: PublishPipelineArtifact@1
+    displayName: "Publish Terraform Plan"
+    condition: and(succeeded(), eq(${{ parameters.terraformPlan }}, true))
+    inputs:
+      targetPath: $(System.DefaultWorkingDirectory)/tfplan
+      artifactName: tfplan
 
   - task: TerraformTaskV4@4
     displayName: "Terraform Apply"
