@@ -22,7 +22,6 @@ stages:
             parameters:
               environment: "stage"
               azureServiceConnection: "ARM_SUBSCRIPTION"
-              terraformFormat: true
               terraformValidate: true
               terraformPlan: true
               terraformApply: false

@@ -1,7 +1,6 @@
 parameters:
   environment: "stage"
   azureServiceConnection: "ARM_SUBSCRIPTION"
-  terraformFormat: false
   terraformValidate: true
   terraformPlan: true
   terraformApply: false
@@ -28,15 +27,6 @@ steps:
       backendAzureRmContainerName: $(terraformBackendContainerName)
       backendAzureRmKey: $(terraformBackendKey)
       commandOptions: "-input=false"
-
-  - task: TerraformTaskV4@4
-    displayName: "Terraform Format"
-    condition: and(succeeded(), eq(${{ parameters.terraformFormat }}, true))
-    inputs:
-      provider: "azurerm"
-      command: fmt
-      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
-      commandOptions: "-recursive -check"
 
   - task: TerraformTaskV4@4
     displayName: "Terraform Validate"
