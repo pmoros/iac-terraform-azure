@@ -7,7 +7,7 @@ parameters:
   terraformApply: false
 
 jobs:
-  - job: Terraform delivery
+  - job: Terraform_delivery
     displayName: "Terraform delivery"
     pool:
       vmImage: "ubuntu-latest"

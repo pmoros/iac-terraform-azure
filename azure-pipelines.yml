@@ -4,7 +4,7 @@ trigger:
       - main
 
 stages:
-  - stage: Terraform build
+  - stage: Terraform_build
     displayName: "Terraform build"
     dependsOn: []
     condition: succeeded()
