@@ -62,4 +62,4 @@ steps:
       command: apply
       workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
       commandOptions: "-input=false tfplan"
-      environmentServiceName: ${{ parameters.azureServiceConnection }}
+      environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
