@@ -1,0 +1,25 @@
+parameters:
+  environment: "stage"
+  azureServiceConnection: "ARM_SUBSCRIPTION"
+  terraformValidate: true
+  terraformPlan: true
+  terraformApply: false
+
+jobs:
+  - job: Terraform_delivery
+    displayName: "Terraform delivery"
+    pool:
+      vmImage: "ubuntu-latest"
+    variables:
+      - template: ../variables/terraform-variables.yml
+        parameters:
+          environment: $(environment)
+    steps:
+      - template: ../steps/terraform-delivery-steps.yml
+        parameters:
+          environment: ${{ parameters.environment }}
+          azureServiceConnection: ${{ parameters.azureServiceConnection }}
+            ${{ parameters. }}
+          terraformValidate: ${{ parameters.terraformValidate }}
+          terraformPlan: ${{ parameters.terraformPlan }}
+          terraformApply: ${{ parameters.terraformApply }}

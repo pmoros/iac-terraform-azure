@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+      - main
+
+stages:
+  - stage: Terraform_build
+    displayName: "Terraform build"
+    dependsOn: []
+    condition: succeeded()
+    jobs:
+      - job: TF_BUILD
+        displayName: "Terraform build"
+        pool:
+          vmImage: "ubuntu-latest"
+        variables:
+          - template: terraform-templates/variables/terraform-variables.yml
+            parameters:
+              environment: $(environment)
+        steps:
+          - template: terraform-templates/steps/terraform-delivery-steps.yml
+            parameters:
+              environment: "stage"
+              azureServiceConnection: "ARM_SUBSCRIPTION"
+              terraformValidate: true
+              terraformPlan: true
+              terraformApply: false

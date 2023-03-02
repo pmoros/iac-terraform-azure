@@ -1,5 +1,5 @@
 terraform {
-  required_version = "=1.3.9"
+  required_version = ">=1.3.9"
   backend "azurerm" {
     storage_account_name = "stpaulmorostfstate001"
     container_name       = "crtfstate001"

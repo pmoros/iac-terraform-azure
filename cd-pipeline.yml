@@ -1,0 +1,25 @@
+trigger:
+  - main
+
+stages:
+  - stage: Terraform deploy
+    displayName: "Terraform deploy"
+    dependsOn: []
+    condition: succeeded()
+    jobs:
+      - job: TF_DEPLOY
+        displayName: "Terraform deploy"
+        pool:
+          vmImage: "ubuntu-latest"
+        variables:
+          - template: terraform-templates/variables/terraform-variables.yml
+            parameters:
+              environment: $(environment)
+        steps:
+          - template: terraform-templates/steps/terraform-delivery-steps.yml
+            parameters:
+              environment: "stage"
+              azureServiceConnection: "ARM_SUBSCRIPTION"
+              terraformValidate: true
+              terraformPlan: true
+              terraformApply: true
