@@ -1,0 +1,63 @@
+parameters:
+  environment: "stage"
+  azureServiceConnection: "terraform"
+  terraformFormat: false
+  terraformValidate: true
+  terraformPlan: true
+  terraformApply: false
+
+steps:
+  - task: TerraformInstaller@0
+    displayName: "Install Terraform"
+    inputs:
+      terraformVersion: "0.12.24"
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+
+  - task: TerraformCLI@0
+    displayName: "Terraform Init"
+    inputs:
+      command: init
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+      backendType: "azurerm"
+      backendServiceArm: ${{ parameters.azureServiceConnection }}}
+      ensureBackend: true
+      backendAzureRmResourceGroupName: $(terraformBackendResourceGroupName)
+      backendAzureRmStorageAccountName: $(terraformBackendStorageAccountName)
+      backendAzureRmContainerName: $(terraformBackendContainerName)
+      backendAzureRmKey: $(terraformBackendKey)
+      commandOptions: "-input=false"
+
+  - task: TerraformCLI@0
+    displayName: "Terraform Format"
+    condition: and(succeeded(), eq(${{ parameters.terraformFormat }}, true))
+    inputs:
+      command: fmt
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+      commandOptions: "-recursive -check"
+
+  - task: TerraformCLI@0
+    displayName: "Terraform Validate"
+    condition: and(succeeded(), eq(${{ parameters.terraformValidate }}, true))
+    inputs:
+      command: validate
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+      commandOptions: "-input=false"
+      environmentServiceName: ${{ parameters.azureServiceConnection }}
+
+  - task: TerraformCLI@0
+    displayName: "Terraform Plan"
+    condition: and(succeeded(), eq(${{ parameters.terraformPlan }}, true))
+    inputs:
+      command: plan
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+      commandOptions: "-input=false -out=tfplan"
+      environmentServiceName: ${{ parameters.azureServiceConnection }}
+
+  - task: TerraformCLI@0
+    displayName: "Terraform Apply"
+    condition: and(succeeded(), eq(${{ parameters.terraformApply }}, true))
+    inputs:
+      command: apply
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+      commandOptions: "-input=false tfplan"
+      environmentServiceName: ${{ parameters.azureServiceConnection }}
