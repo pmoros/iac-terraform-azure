@@ -2,7 +2,7 @@ trigger:
   - main
 
 stages:
-  - stage: Terraform deploy
+  - stage: Terraform_deploy
     displayName: "Terraform deploy"
     dependsOn: []
     condition: succeeded()
