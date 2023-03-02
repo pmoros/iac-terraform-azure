@@ -35,7 +35,6 @@ steps:
       provider: "azurerm"
       command: validate
       workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
-      commandOptions: "-input=false"
       environmentServiceName: ${{ parameters.azureServiceConnection }}
 
   - task: TerraformTaskV4@4
