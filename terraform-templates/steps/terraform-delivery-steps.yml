@@ -4,6 +4,7 @@ parameters:
   terraformValidate: true
   terraformPlan: true
   terraformApply: false
+  terraformDestroy: false
 
 steps:
   - task: TerraformInstaller@0
@@ -62,4 +63,13 @@ steps:
       command: apply
       workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
       commandOptions: "-input=false tfplan"
+      environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
+  - task: TerraformTaskV4@4
+    displayName: "Terraform Destroy"
+    condition: and(succeeded(), eq(${{ parameters.terraformDestroy }}, true))
+    inputs:
+      provider: "azurerm"
+      command: destroy
+      workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
+      commandOptions: "-input=false -auto-approve"
       environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}

@@ -4,6 +4,7 @@ parameters:
   terraformValidate: true
   terraformPlan: true
   terraformApply: false
+  terraformDestroy: false
 
 jobs:
   - job: Terraform_delivery
