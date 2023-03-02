@@ -45,7 +45,7 @@ steps:
       command: plan
       workingDirectory: "$(System.DefaultWorkingDirectory)/$(environment)"
       commandOptions: "-input=false -out=tfplan"
-      environmentServiceName: ${{ parameters.azureServiceConnection }}
+      environmentServiceNameAzureRM: ${{ parameters.azureServiceConnection }}
 
   - task: TerraformTaskV4@4
     displayName: "Terraform Apply"
