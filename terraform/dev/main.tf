@@ -19,14 +19,20 @@ module "resource_group" {
   project     = var.project
   environment = var.environment
   location    = var.location
+  tags        = var.tags
 }
 
 module "vpc" {
-  source      = "../../modules/networks/vpc"
-  project     = var.project
-  environment = var.environment
-  location    = var.location
+  source              = "../../modules/networks/vpc"
+  project             = var.project
+  environment         = var.environment
+  location            = var.location
   resource_group_name = module.resource_group.resource_group_name
-  address_space = var.address_space
+  address_space       = var.address_space
+  tags                = var.tags
 }
 
+# module "app_service" {
+#   source     = "../../modules/services/app-service"
+
+# }

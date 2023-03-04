@@ -16,8 +16,16 @@ variable "environment" {
   description = "Environment"
 }
 
-variable address_space {
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Tags"
+}
+
+variable "address_space" {
   type        = list(string)
   default     = ["172.16.1.0/24"]
   description = "Address space"
 }
+
+
