@@ -22,13 +22,29 @@ variable "tags" {
   default     = {}
   description = "Tags"
 }
+
+
 # Network
 variable "address_space" {
   type        = list(string)
   default     = ["172.16.1.0/24"]
   description = "Address space"
 }
-# services
+
+variable "subnets" {
+  type = map(object({
+    prefixes = list(string)
+  }))
+  default = {
+    "subnet1" = {
+      prefixes = [""]
+    }
+  }
+  description = "The list of subnets to create in the virtual network."
+}
+
+
+# Services
 variable "sku_name" {
   type        = string
   default     = "Standard_B1ms"
