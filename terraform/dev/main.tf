@@ -6,7 +6,7 @@ terraform {
     # - storage_account_name
     # - container_name
     # - key
-  }  
+  }
 }
 
 
@@ -20,3 +20,13 @@ module "resource_group" {
   environment = var.environment
   location    = var.location
 }
+
+module "vpc" {
+  source      = "../../modules/networks/vpc"
+  project     = var.project
+  environment = var.environment
+  location    = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  address_space = var.address_space
+}
+

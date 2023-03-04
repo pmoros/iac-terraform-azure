@@ -15,3 +15,9 @@ variable "environment" {
   default     = "dev"
   description = "Environment"
 }
+
+variable address_space {
+  type        = list(string)
+  default     = ["172.16.1.0/24"]
+  description = "Address space"
+}

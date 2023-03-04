@@ -1,13 +1,25 @@
+variable "project" {
+  type        = string
+  default     = "sample"
+  description = "Project name"
+}
+
+variable "location" {
+  type        = string
+  default     = "eastus"
+  description = "Region"
+}
+
+variable "environment" {
+  type        = string
+  default     = "dev"
+  description = "Environment"
+}
+
 variable asg_name {
   type        = string
   default     = "asg_name"
   description = "Azure Security Group Name"
-}
-
-variable location {
-    type        = string
-    default     = "eastus"
-    description = "Azure Location"
 }
 
 variable resource_group_name {
