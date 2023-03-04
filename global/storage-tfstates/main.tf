@@ -24,6 +24,6 @@ resource "azurerm_storage_account" "tfstates" {
 
 resource "azurerm_storage_container" "tfstates" {
   name                  = "crtfstates${var.workload}"
-  storage_account_name  = azurerm_storage_account.stpaulmorostfstate001.name
+  storage_account_name  = azurerm_storage_account.tfstates.name
   container_access_type = var.container_access_type
 }
