@@ -32,7 +32,12 @@ module "vpc" {
   tags                = var.tags
 }
 
-# module "app_service" {
-#   source     = "../../modules/services/app-service"
-
-# }
+module "app_service" {
+  source = "../../modules/services/app-service"
+  project = var.project
+  environment = var.environment
+  location = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  sku_name = var.sku_name
+  site_config = var.site_config
+}

@@ -15,3 +15,9 @@ variable "environment" {
   default     = "dev"
   description = "Environment"
 }
+
+variable "tags" {
+  type        = map(any)
+  default     = {}
+  description = "Tags"
+}

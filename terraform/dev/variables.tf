@@ -1,3 +1,4 @@
+# General
 variable "project" {
   type        = string
   default     = "sample"
@@ -21,11 +22,24 @@ variable "tags" {
   default     = {}
   description = "Tags"
 }
-
+# Network
 variable "address_space" {
   type        = list(string)
   default     = ["172.16.1.0/24"]
   description = "Address space"
+}
+# services
+variable "sku_name" {
+  type        = string
+  default     = "Standard_B1ms"
+  description = "SKU name"
+}
+
+variable "site_config" {
+  type = object({
+    runtime_stack  = string
+    dotnet_version = string
+  })
 }
 
 
