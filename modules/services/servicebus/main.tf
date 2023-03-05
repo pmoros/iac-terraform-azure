@@ -1,3 +1,7 @@
+terraform {
+  required_version = "=1.3.9"
+}
+
 resource "azurerm_servicebus_namespace" "namespace" {
   name                         = "sb-${var.project}-${var.environment}-${var.location}"
   location                     = var.location

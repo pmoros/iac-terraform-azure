@@ -1,3 +1,7 @@
+terraform {
+  required_version = "=1.3.9"
+}
+
 resource "azurerm_subnet" "subnet" {
   for_each             = var.subnets
   name                 = each.key

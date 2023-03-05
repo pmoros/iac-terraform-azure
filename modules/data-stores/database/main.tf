@@ -1,3 +1,7 @@
+terraform {
+  required_version = "=1.3.9"
+}
+
 data "azurerm_client_config" "current" {}
 
 
