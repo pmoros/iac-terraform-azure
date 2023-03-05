@@ -64,6 +64,18 @@ variable "servicebus_sku" {
   default     = "Standard"
   description = "Service Bus SKU"
 }
+# Database
+variable administrator_login {
+  type        = string
+  default     = "admin"
+  description = "Administrator login"
+}
+variable administrator_login_password {
+  type        = string  
+  sensitive = true
+  description = "Administrator login"  
+}
+
 
 
 

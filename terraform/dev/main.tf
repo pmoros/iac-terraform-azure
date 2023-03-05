@@ -66,3 +66,30 @@ module "service_bus" {
   servicebus_sku      = var.servicebus_sku
   tags                = var.tags
 }
+
+# Database
+resource "random_password" "database_password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+module "database" {
+  source              = "../../modules/data-stores/database"
+  project             = var.project
+  environment         = var.environment
+  location            = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  administrator_login = var.administrator_login
+  administrator_login_password = random_password.database_password.result
+  tags                = var.tags
+}
+
+
+
+resource "azurerm_mssql_firewall_rule" "firewall_rule" {
+  name                = "dbfr-${var.project}-${var.environment}-${var.location}"
+  server_id        = module.database.database_server_id
+  start_ip_address    = "172.16.1.1"
+  end_ip_address      = "172.16.1.126"
+}
