@@ -70,11 +70,6 @@ variable administrator_login {
   default     = "admin"
   description = "Administrator login"
 }
-variable administrator_login_password {
-  type        = string  
-  sensitive = true
-  description = "Administrator login"  
-}
 
 
 
