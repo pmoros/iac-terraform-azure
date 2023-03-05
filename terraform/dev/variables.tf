@@ -45,6 +45,7 @@ variable "subnets" {
 
 
 # Services
+# Web App
 variable "sku_name" {
   type        = string
   default     = "Standard_B1ms"
@@ -57,5 +58,13 @@ variable "site_config" {
     dotnet_version = string
   })
 }
+# Service Bus
+variable "servicebus_sku" {
+  type        = string
+  default     = "Standard"
+  description = "Service Bus SKU"
+}
+
+
 
 

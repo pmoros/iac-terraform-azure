@@ -1,24 +1,39 @@
-variable servicebus_namespace_name {
-    description = "The name of the service bus namespace"
-    default     = "servicebus-namespace"
+variable "project" {
+  type        = string
+  default     = "sample"
+  description = "Project name"
 }
 
-variable location {
-    description = "The location/region where the service bus namespace is created"
-    default     = "eastus"
+variable "location" {
+  type        = string
+  default     = "eastus"
+  description = "Region"
 }
 
-variable resource_group_name {
-    description = "The name of the resource group in which the service bus namespace is created"
-    default     = "servicebus-rg"
+variable "environment" {
+  type        = string
+  default     = "dev"
+  description = "Environment"
+}
+# Service bus
+variable "resource_group_name" {
+  type        = string
+  default     = "resource_group_name"
+  description = "Azure Resource Group Name"
 }
 
-variable servicebus_queue_name {
-    description = "The name of the service bus queue"
-    default     = "servicebus-queue"
+variable servicebus_sku {
+  type        = string
+  default     = "Standard"
+  description = "Service bus SKU"
 }
 
-variable sku {
-    description = "The name of the service bus namespace SKU"
-    default     = "Standard"
+
+variable "tags" {
+  type = map(any)
+  default = {
+    "project"     = "sample"
+    "environment" = "dev"
+  }
+  description = "Azure Resource Tags"
 }

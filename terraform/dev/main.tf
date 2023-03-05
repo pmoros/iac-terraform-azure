@@ -56,8 +56,13 @@ resource "azurerm_app_service_virtual_network_swift_connection" "example" {
   subnet_id      = module.subnet.subnet.webApp.id
 }
 
-# data "azurerm_subnet" "subnet" {
-#   name                 = module.subnet.name
-#   virtual_network_name = module.vpc.vnet_name
-#   resource_group_name  = module.resource_group.resource_group_name
-# }
+# Service bus
+module "service_bus" {
+  source              = "../../modules/services/servicebus"
+  project             = var.project
+  environment         = var.environment
+  location            = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  servicebus_sku      = var.servicebus_sku
+  tags                = var.tags
+}
