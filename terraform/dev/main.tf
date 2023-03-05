@@ -50,3 +50,14 @@ module "app_service" {
   sku_name            = var.sku_name
   site_config         = var.site_config
 }
+
+resource "azurerm_app_service_virtual_network_swift_connection" "example" {
+  app_service_id = module.app_service.web_app_id
+  subnet_id      = module.subnet.subnet.webApp.id
+}
+
+# data "azurerm_subnet" "subnet" {
+#   name                 = module.subnet.name
+#   virtual_network_name = module.vpc.vnet_name
+#   resource_group_name  = module.resource_group.resource_group_name
+# }
