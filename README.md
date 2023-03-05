@@ -13,10 +13,10 @@ The branching strategy used in this repository is based on the [Github Flow](htt
 
 This project divides the infrastructure into global resources (used by all environments) like resource groups or storage accounts. There are also modules and an staging environment.
 
-1. Create the global resources using the terraform `terraform apply` command.
-   1. Create the resource group for the global resources using the terraform `terraform apply` command in the `global/resource-group` folder.
-   2. Create the storage account for the global resources (terraform state will be store here) using the terraform `terraform apply` command in the `global/storage-account` folder.
+1. Create the global resources using the terraform `terraform apply` command in the `global` folder.
 
 # Build and Test
 
-There is a stage environment configured to apply the described infrastructure. To create this environment execute `cd stage` and then `terraform apply` in order to execute the script.
+## Environments
+
+- In the `terraform` folder you can find the infrastructure for the different environments. These are separated using subfolders for each environment. That is because each environment has its own state file and variables file. This approach has been found to be the most flexible and easy to maintain, as it allows for easy separation of environments and allows for easy addition of new environments.

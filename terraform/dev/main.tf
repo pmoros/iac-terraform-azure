@@ -141,6 +141,10 @@ resource "azurerm_key_vault_access_policy" "defined_access_policy" {
     "Get", "Update", "Delete", "List", "Encrypt", "Decrypt", 
   ]
 
+  secret_permissions = [
+    "Get", "Delete", "List", "Set", "Recover",  "Backup", "Restore", "Purge"
+  ]  
+
   depends_on = [azurerm_key_vault.kv]
 }
 
@@ -148,6 +152,8 @@ resource "azurerm_key_vault_secret" "db_username" {
   name         = "dbusername"
   value        = var.administrator_login
   key_vault_id = azurerm_key_vault.kv.id
+
+  depends_on = [azurerm_key_vault_access_policy.defined_access_policy]
 }
 
 
@@ -155,4 +161,6 @@ resource "azurerm_key_vault_secret" "db_password" {
   name         = "dbpassword"
   value        = random_password.database_password.result
   key_vault_id = azurerm_key_vault.kv.id
+
+  depends_on = [azurerm_key_vault_access_policy.defined_access_policy]
 }
