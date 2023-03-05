@@ -1,5 +1,5 @@
 parameters:
-  environment: "stage"
+  environment: "dev"
   azureServiceConnection: "ARM_SUBSCRIPTION"
   terraformValidate: true
   terraformPlan: true

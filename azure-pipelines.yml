@@ -14,13 +14,13 @@ stages:
         pool:
           vmImage: "ubuntu-latest"
         variables:
-          - template: terraform-templates/variables/terraform-variables.yml
+          - template: pipeline-templates/variables/terraform-variables.yml
             parameters:
-              environment: $(environment)
+              environment: "dev"
         steps:
-          - template: terraform-templates/steps/terraform-delivery-steps.yml
+          - template: pipeline-templates/steps/terraform-delivery-steps.yml
             parameters:
-              environment: "stage"
+              environment: "dev"
               azureServiceConnection: "ARM_SUBSCRIPTION"
               terraformValidate: true
               terraformPlan: true

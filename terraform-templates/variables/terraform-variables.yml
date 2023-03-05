@@ -1,6 +1,0 @@
-variables:
-  environment: "stage"
-  terraformBackendResourceGroupName: "rg-terraform-eastus"
-  terraformBackendStorageAccountName: "stpaulmorostfstate001"
-  terraformBackendContainerName: "crtfstate001"
-  terraformBackendKey: "global/storage-account"
