@@ -1,4 +1,10 @@
 # General
+variable owner {
+  type        = string
+  default     = "sample"
+  description = "Owner (short name [it is used for storage account name])"
+  sensitive = true
+}
 variable "project" {
   type        = string
   default     = "sample"

@@ -1,23 +1,19 @@
 terraform {
-  required_version = ">=1.3.9"
+  required_version = "=1.3.9"
 }
 
-resource "azurerm_storage_account" "stpaulmorosact002" {
-  name                     = "stpaulmorosact002"
-  resource_group_name      = "rg-activity2-${var.location}"
+resource "azurerm_storage_account" "storage_account" {
+  name                     = "st${var.owner}${var.project}${var.environment}"
+  resource_group_name      = var.resource_group_name
   location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_tier             = var.account_tier
+  account_replication_type = var.replication_type
 
-  tags = {
-    lob = "learning"
-    workload = "activity2"
-  }
-
-  network_rules {
+    network_rules {
     default_action             = "Allow"
     ip_rules                   = []
     virtual_network_subnet_ids = [var.subnet_id]
-  }  
-  
+  }
+
+  tags = var.tags
 }

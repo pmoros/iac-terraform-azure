@@ -93,3 +93,27 @@ resource "azurerm_mssql_firewall_rule" "firewall_rule" {
   start_ip_address    = "172.16.1.1"
   end_ip_address      = "172.16.1.126"
 }
+
+
+# Storage account
+module "storage_account" {
+  source              = "../../modules/data-stores/storage-account"
+  owner              = var.owner
+  project             = var.project
+  environment         = var.environment
+  location            = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  # Allow access from the subnet
+  subnet_id           = module.subnet.subnet.webApp.id
+  tags                = var.tags
+}
+
+# # Key vault
+# module "key_vault" {
+#   source              = "../../modules/data-stores/key-vault"
+#   project             = var.project
+#   environment         = var.environment
+#   location            = var.location
+#   resource_group_name = module.resource_group.resource_group_name
+#   tags                = var.tags
+# }
