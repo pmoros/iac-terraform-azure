@@ -108,12 +108,13 @@ module "storage_account" {
   tags                = var.tags
 }
 
-# # Key vault
-# module "key_vault" {
-#   source              = "../../modules/data-stores/key-vault"
-#   project             = var.project
-#   environment         = var.environment
-#   location            = var.location
-#   resource_group_name = module.resource_group.resource_group_name
-#   tags                = var.tags
-# }
+# Key vault
+module "key_vault" {
+  source              = "../../modules/data-stores/key-vault"
+  project             = var.project
+  environment         = var.environment
+  location            = var.location
+  resource_group_name = module.resource_group.resource_group_name
+  tags                = var.tags
+}
+

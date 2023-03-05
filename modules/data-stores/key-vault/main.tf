@@ -1,11 +1,11 @@
 terraform {
-  required_version = ">=1.3.9"
+  required_version = "=1.3.9"
 }
 
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
-  name                        = var.key_vault_name
+  name                        = "kv-${var.project}-${var.environment}-${var.location}"
   location                    = var.location
   resource_group_name         = var.resource_group_name
   enabled_for_disk_encryption = true
@@ -19,5 +19,7 @@ resource "azurerm_key_vault" "kv" {
     ip_rules                   = []    
     virtual_network_subnet_ids = [var.subnet_id]
   }
+
+  tags = var.tags
 }
 
