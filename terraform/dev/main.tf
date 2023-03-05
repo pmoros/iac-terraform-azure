@@ -14,6 +14,9 @@ provider "azurerm" {
   features {}
 }
 
+
+data "azurerm_client_config" "current" {}
+
 module "resource_group" {
   source      = "../../modules/resource-group"
   project     = var.project
@@ -109,12 +112,47 @@ module "storage_account" {
 }
 
 # Key vault
-module "key_vault" {
-  source              = "../../modules/data-stores/key-vault"
-  project             = var.project
-  environment         = var.environment
-  location            = var.location
-  resource_group_name = module.resource_group.resource_group_name
-  tags                = var.tags
+resource "azurerm_key_vault" "kv" {
+  name                        = "kv${var.owner}${var.project}${var.environment}"
+  location                    = var.location
+  resource_group_name         = module.resource_group.resource_group_name
+  enabled_for_disk_encryption = true
+  tenant_id                   = data.azurerm_client_config.current.tenant_id
+
+  sku_name = var.keyvault_sku
+
+  network_acls {
+    default_action             = "Allow"
+    bypass                     = "AzureServices"
+    ip_rules                   = []    
+    virtual_network_subnet_ids = [module.subnet.subnet.webApp.id]
+  }
+
+  tags = var.tags
 }
 
+resource "azurerm_key_vault_access_policy" "defined_access_policy" {
+  for_each = toset(concat(var.object_ids, [data.azurerm_client_config.current.object_id]))
+  key_vault_id = azurerm_key_vault.kv.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = each.value
+
+  key_permissions = [
+    "Get", "Update", "Delete", "List", "Encrypt", "Decrypt", 
+  ]
+
+  depends_on = [azurerm_key_vault.kv]
+}
+
+resource "azurerm_key_vault_secret" "db_username" {
+  name         = "dbusername"
+  value        = var.administrator_login
+  key_vault_id = azurerm_key_vault.kv.id
+}
+
+
+resource "azurerm_key_vault_secret" "db_password" {
+  name         = "dbpassword"
+  value        = random_password.database_password.result
+  key_vault_id = azurerm_key_vault.kv.id
+}

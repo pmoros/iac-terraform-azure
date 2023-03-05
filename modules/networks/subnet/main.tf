@@ -8,6 +8,8 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.vnet_name
   address_prefixes     = each.value.prefixes
+  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage", "Microsoft.ServiceBus", "Microsoft.Sql"]
+
   delegation {
     name = "example-delegation"
 
@@ -15,5 +17,5 @@ resource "azurerm_subnet" "subnet" {
       name    = "Microsoft.Web/serverFarms"
       actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
     }
-  }
+  }  
 }

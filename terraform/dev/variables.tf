@@ -77,7 +77,16 @@ variable administrator_login {
   description = "Administrator login"
 }
 
+# Key Vault
+variable object_ids {
+  type        = list(string)
+  description = "Object IDs"
+}
 
-
+variable keyvault_sku {
+  type        = string
+  default     = "standard"
+  description = "Key Vault SKU"
+}
 
 
